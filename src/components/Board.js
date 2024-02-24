@@ -2,13 +2,25 @@ import React, { useState } from 'react'
 import Square from './Square'
 
 function Board() {
+    // state management
     const [squares, setSquares] = useState(Array(9).fill(null))
-
+    const [xIsNext, setXIsNext] = useState(true)
+    // Each time a player moves, xIsNext will be flipped to determine which player goes next
+    // and the game’s state will be saved.
     function handleClick(index) {
+        // If the square is already filled return before updating the state of component
+        if (squares[index]) return;
+
         const nextSquares = squares.slice();
-        nextSquares[index] = "X";
+        if (xIsNext) {
+            nextSquares[index] = "X";
+        } else {
+            nextSquares[index] = "O";
+        }
         setSquares(nextSquares);
+        setXIsNext(!xIsNext)
     }
+    // Taking turns
 
     return (
         <>
