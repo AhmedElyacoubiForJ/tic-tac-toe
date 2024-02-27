@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import Square from './Square'
 
-function Board() {
+function Board({ xIsNext, squares, onPlay }) {
     // state management
-    const [squares, setSquares] = useState(Array(9).fill(null))
-    const [xIsNext, setXIsNext] = useState(true)
+    //const [squares, setSquares] = useState(Array(9).fill(null))
+    //const [xIsNext, setXIsNext] = useState(true)
 
     function handleClick(index) {
         // If the square is already filled return before updating the state of component
@@ -12,17 +12,13 @@ function Board() {
             return;
         }
 
-        // Taking turns
-        // Each time a player moves, xIsNext will be flipped to determine which player goes next
-        // and the game’s state will be saved.
         const nextSquares = squares.slice()
         if (xIsNext) {
             nextSquares[index] = "X";
         } else {
             nextSquares[index] = "O";
         }
-        setSquares(nextSquares);
-        setXIsNext(!xIsNext)
+        onPlay(nextSquares);
     }
 
     // Declaring a winner
